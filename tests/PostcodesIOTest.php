@@ -29,7 +29,7 @@ class PostcodesIOTest extends \PHPUnit_Framework_TestCase {
    }
 
     public function testFindLocation() {
-        $address = $this->postcodeIO->findLocation($this->latitude, $this->longitude);
+        $address = $this->postcodeIO->findByLocation($this->latitude, $this->longitude);
 
         $this->assertInstanceOf('stdClass', $address);
         $this->assertObjectHasAttribute('status', $address);

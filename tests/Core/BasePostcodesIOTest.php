@@ -26,15 +26,13 @@ class BasePostcodesIOTest extends \PHPUnit_Framework_TestCase {
 
     public function testBareConstructor() {
         $this->assertInstanceOf('Jabranr\PostcodesIO\PostcodesIO', $this->postcodeFinder);
-        $this->assertObjectHasAttribute('result', $this->postcodeFinder);
-        $this->assertNull($this->postcodeFinder->result);
+        $this->assertNull($this->postcodeFinder->getResult());
     }
 
     public function testConstructor() {
         $postcodeFinder = new PostcodesIO($this->validPostcode);
         $this->assertInstanceOf('Jabranr\PostcodesIO\PostcodesIO', $postcodeFinder);
-        $this->assertObjectHasAttribute('result', $postcodeFinder);
-        $this->assertNotNull($postcodeFinder->result);
+        $this->assertNotNull($postcodeFinder->getResult());
     }
 
     public function testFind() {

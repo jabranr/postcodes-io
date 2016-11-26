@@ -24,7 +24,7 @@ class PostcodesIO extends BasePostcodesIO {
      * @param float $longitude
      * @return stdClass
      */
-    public function findLocation($latitude, $longitude) {
+    public function findByLocation($latitude, $longitude) {
         return $this->get(static::API_POSTCODES_ENDPOINT, array(
             'lat' => (float) $latitude,
             'lon' => (float) $longitude

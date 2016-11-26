@@ -24,7 +24,7 @@ abstract class BasePostcodesIO implements PostcodesIOInterface {
     /**
      * @var mixed
      */
-    public $result;
+    private $result;
 
     /**
      * @param string $postcode
@@ -58,13 +58,15 @@ abstract class BasePostcodesIO implements PostcodesIOInterface {
     /**
      * Make a HTTP GET call
      *
+     * @codeCoverageIgnore
+     *
      * @param string $endpoint
      * @param array $query
      * @throws Jabranr\PostcodesIO\Exception\BadResponseException
      * @throws Jabranr\PostcodesIO\Exception\MalformedJsonException
      * @return stdClass
      */
-    public function get($endpoint, array $query = null) {
+    protected function get($endpoint, array $query = null) {
         $uri = $this->getApiUri($endpoint, $query);
         $response = file_get_contents($uri);
 
@@ -78,18 +80,22 @@ abstract class BasePostcodesIO implements PostcodesIOInterface {
             throw new MalformedJsonException(json_last_error_msg(), 400);
         }
 
+        $this->result = $response;
         return $response;
     }
 
     /**
      * Make a HTTP POST request
      *
+     * @codeCoverageIgnore
+     *
      * @param string $endpoint
      * @param array $data
      * @throws Jabranr\PostcodesIO\Exception\BadRequestException
+     * @throws Jabranr\PostcodesIO\Exception\MalformedJsonException
      * @return mixed
      */
-    public function post($endpoint, array $data) {
+    protected function post($endpoint, array $data) {
         $uri = $this->getApiUri($endpoint);
         $data = json_encode($data);
 
@@ -115,7 +121,14 @@ abstract class BasePostcodesIO implements PostcodesIOInterface {
             );
         }
 
-        return json_decode($response);
+        $response = json_decode($response);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new MalformedJsonException(json_last_error_msg(), 400);
+        }
+
+        $this->result = $response;
+        return $response;
     }
 
     /**
@@ -144,6 +157,19 @@ abstract class BasePostcodesIO implements PostcodesIOInterface {
     public function trimClean($str) {
         return ltrim($str, '/');
     }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getResult() {
+       return $this->result;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function setResult($result) {
+        $this->result = $result;
+        return $this;
+    }
 }
-
-
