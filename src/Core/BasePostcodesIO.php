@@ -3,6 +3,8 @@
 namespace Jabranr\PostcodesIO\Core;
 
 use Jabranr\PostcodesIO\Exception\BadRequestException;
+use Jabranr\PostcodesIO\Exception\BadResponseException;
+use Jabranr\PostcodesIO\Exception\MalformedJsonException;
 use Jabranr\PostcodesIO\Interfaces\PostcodesIOInterface;
 
 /**
