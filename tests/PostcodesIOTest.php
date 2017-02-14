@@ -12,8 +12,6 @@ class PostcodesIOTest extends \PHPUnit_Framework_TestCase {
     public $validPostcode;
     public $inValidPostcode;
 
-    const POSTCODES_IO_VERSION = '1.0.1';
-
     public function setUp() {
         $this->postcodeIO = new PostcodesIO();
         $this->latitude = 51.520331;
@@ -33,7 +31,7 @@ class PostcodesIOTest extends \PHPUnit_Framework_TestCase {
     public function testVersion() {
         $composerJson = file_get_contents(__DIR__ . '/../composer.json');
         $composerJson = json_decode($composerJson);
-        $this->assertEquals($composerJson->version, static::POSTCODES_IO_VERSION);
+        $this->assertEquals($composerJson->version, PostcodesIO::VERSION);
     }
 
     public function testFindLocation() {
