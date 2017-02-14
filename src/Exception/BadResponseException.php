@@ -2,6 +2,8 @@
 
 namespace Jabranr\PostcodesIO\Exception;
 
-class BadResponseException extends \Exception {
+use Jabranr\PostcodesIO\Exception\PostcodeIOException;
+
+class BadResponseException extends PostcodeIOException {
 
 }
