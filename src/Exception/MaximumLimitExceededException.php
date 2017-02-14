@@ -2,6 +2,8 @@
 
 namespace Jabranr\PostcodesIO\Exception;
 
-class MaximumLimitExceededException extends \Exception {
+use Jabranr\PostcodesIO\Exception\PostcodeIOException;
+
+class MaximumLimitExceededException extends PostcodeIOException {
 
 }

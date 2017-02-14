@@ -2,6 +2,8 @@
 
 namespace Jabranr\PostcodesIO\Exception;
 
-class MalformedJsonException extends \Exception {
+use Jabranr\PostcodesIO\Exception\PostcodeIOException;
+
+class MalformedJsonException extends PostcodeIOException {
 
 }
