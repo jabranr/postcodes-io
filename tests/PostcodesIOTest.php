@@ -18,7 +18,7 @@ class PostcodesIOTest extends \PHPUnit_Framework_TestCase {
         $this->longitude = -0.1396267;
         $this->validPostcode = 'W1T 7NY';
         $this->inValidPostcode = 'TW16 7WT';
-   }
+    }
 
     public function tearUp() {
         $this->postcodeIO = null;
@@ -26,7 +26,13 @@ class PostcodesIOTest extends \PHPUnit_Framework_TestCase {
         $this->longitude = null;
         $this->validPostcode = null;
         $this->inValidPostcode = null;
-   }
+    }
+
+    public function testVersion() {
+        $composerJson = file_get_contents(__DIR__ . '/../composer.json');
+        $composerJson = json_decode($composerJson);
+        $this->assertEquals($composerJson->version, PostcodesIO::VERSION);
+    }
 
     public function testFindLocation() {
         $address = $this->postcodeIO->findByLocation($this->latitude, $this->longitude);
@@ -187,7 +193,7 @@ class PostcodesIOTest extends \PHPUnit_Framework_TestCase {
         $address = $this->postcodeIO->bulkPostcodeSearch(array(
             $this->validPostcode,
             $this->inValidPostcode
-        ));
+            ));
 
         $this->assertInstanceOf('stdClass', $address);
         $this->assertObjectHasAttribute('status', $address);
@@ -204,12 +210,12 @@ class PostcodesIOTest extends \PHPUnit_Framework_TestCase {
             array(
                 $this->latitude,
                 $this->longitude
-            ),
+                ),
             array(
                 $this->latitude,
                 $this->longitude
-            )
-        ));
+                )
+            ));
 
         $this->assertInstanceOf('stdClass', $address);
         $this->assertObjectHasAttribute('status', $address);

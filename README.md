@@ -13,14 +13,19 @@ $ composer require jabranr/postcodes-io
 
 All of the following methods returnn back the same [complete response]() as it comes from postcodes.io API in JSON format.
 
-> Use `try, catch` to make requests and capture exceptions in case of failure.
-
 #### Find postcode information
 
 ```php
 $postcodeFinder = new PostcodesIO();
-$addresses = $postcodeFinder->find('NW1 5LD');
+
+try {
+  $addresses = $postcodeFinder->find('NW1 5LD');
+} catch(\Exception $e) {
+  echo $e->getMessage();
+}
 ```
+
+> You can catch specific `Jabranr\PostcodesIO\Exception\PostcodeIOException` or/and catch general `\Exception` to catch any type.
 
 ```php
 $postcodeFinder = new PostcodesIO('NW1 5LD');
