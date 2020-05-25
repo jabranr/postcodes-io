@@ -1,4 +1,5 @@
-# PostcodesIO [![Build Status](https://travis-ci.org/jabranr/postcodes-io.svg?branch=master)](https://travis-ci.org/jabranr/postcodes-io)
+# PostcodesIO [![Build Status](https://travis-ci.org/jabranr/postcodes-io.svg?branch=master)](https://travis-ci.org/jabranr/postcodes-io?style=flat-square) ![Packagist Version](https://img.shields.io/packagist/v/jabranr/postcodes-io?style=flat-square) ![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/jabranr/postcodes-io?style=flat-square)
+
 PostcodesIO is a PHP library for postcodes.io API.
 
 # Install
