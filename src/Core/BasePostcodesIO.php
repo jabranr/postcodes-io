@@ -22,7 +22,7 @@ abstract class BasePostcodesIO implements PostcodesIOInterface {
     const API_POSTCODES_ENDPOINT = '/postcodes';
     const API_OUTCODES_ENDPOINT = '/outcodes';
     const BULK_SEARCH_LIMIT = 100;
-    const VERSION = '1.0.1';
+    const VERSION = '1.0.2';
 
     /**
      * @var mixed
