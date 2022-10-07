@@ -13,7 +13,8 @@ use Jabranr\PostcodesIO\Interfaces\CurlRequestInterface;
  * @author Jabran Rafique <hello@jabran.me>
  * @license  MIT license
  */
-class CurlRequest implements CurlRequestInterface {
+class CurlRequest implements CurlRequestInterface
+{
 
     const CURL_USER_AGENT = 'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)';
 
@@ -22,50 +23,60 @@ class CurlRequest implements CurlRequestInterface {
      */
     private $handle;
 
-    public function __construct($uri) {
+    public function __construct($uri)
+    {
         $this->handle = curl_init($uri);
         return $this;
     }
 
-    public function setOption($name, $value) {
+    public function setOption($name, $value)
+    {
         curl_setopt($this->handle, $name, $value);
         return $this;
     }
 
-    public function setOptions($options) {
+    public function setOptions($options)
+    {
         curl_setopt_array($this->handle, $options);
         return $this;
     }
 
-    public function execute() {
+    public function execute()
+    {
         return curl_exec($this->handle);
     }
 
-    public function getInfo($name = null) {
-        if (! $name) {
+    public function getInfo($name = null)
+    {
+        if (!$name) {
             return curl_getinfo($this->handle);
         }
 
         return curl_getinfo($this->handle, $name);
     }
 
-    public function getError() {
+    public function getError()
+    {
         return curl_error($this->handle);
     }
 
-    public function getErrorCode() {
+    public function getErrorCode()
+    {
         return curl_errno($this->handle);
     }
 
-    public function getStatusCode() {
+    public function getStatusCode()
+    {
         return $this->getInfo(CURLINFO_HTTP_CODE);
     }
 
-    public function getRequestTime() {
+    public function getRequestTime()
+    {
         return $this->getInfo(CURLINFO_TOTAL_TIME);
     }
 
-    public function close() {
+    public function close()
+    {
         curl_close($this->handle);
         return $this;
     }

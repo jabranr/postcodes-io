@@ -2,7 +2,8 @@
 
 namespace Jabranr\PostcodesIO\Interfaces;
 
-interface PostcodesIOInterface {
+interface PostcodesIOInterface
+{
 
     /**
      * Find a postcode

@@ -15,7 +15,8 @@ use Jabranr\PostcodesIO\Exception\MaximumLimitExceededException;
  * @license  MIT license
  */
 
-class PostcodesIO extends BasePostcodesIO {
+class PostcodesIO extends BasePostcodesIO
+{
 
     /**
      * Look up postcodes by geolocation
@@ -24,8 +25,9 @@ class PostcodesIO extends BasePostcodesIO {
      * @param float $longitude
      * @return stdClass
      */
-    public function findByLocation($latitude, $longitude) {
-        return $this->get(static::API_POSTCODES_ENDPOINT, array(
+    public function findByLocation($latitude, $longitude)
+    {
+        return $this->get(BasePostcodesIO::API_POSTCODES_ENDPOINT, array(
             'lat' => (float) $latitude,
             'lon' => (float) $longitude
         ));
@@ -36,9 +38,10 @@ class PostcodesIO extends BasePostcodesIO {
      *
      * @return stdClass
      */
-    public function findRandom() {
+    public function findRandom()
+    {
         return $this->get(
-            sprintf('/random/%s', static::API_POSTCODES_ENDPOINT)
+            sprintf('/random%s', BasePostcodesIO::API_POSTCODES_ENDPOINT)
         );
     }
 
@@ -47,7 +50,8 @@ class PostcodesIO extends BasePostcodesIO {
      *
      * @return stdClass
      */
-    public function random() {
+    public function random()
+    {
         return $this->findRandom();
     }
 
@@ -57,9 +61,10 @@ class PostcodesIO extends BasePostcodesIO {
      * @param string $postcode
      * @return stdClass
      */
-    public function validate($postcode) {
+    public function validate($postcode)
+    {
         return $this->get(
-            sprintf('/%s/%s/validate', static::API_POSTCODES_ENDPOINT, $postcode)
+            sprintf('/%s/%s/validate', BasePostcodesIO::API_POSTCODES_ENDPOINT, rawurlencode($postcode))
         );
     }
 
@@ -69,9 +74,10 @@ class PostcodesIO extends BasePostcodesIO {
      * @param string $postcode
      * @return stdClass
      */
-    public function findNearest($postcode) {
+    public function findNearest($postcode)
+    {
         return $this->get(
-            sprintf('/%s/%s/nearest', static::API_POSTCODES_ENDPOINT, $postcode)
+            sprintf('/%s/%s/nearest', BasePostcodesIO::API_POSTCODES_ENDPOINT, rawurlencode($postcode))
         );
     }
 
@@ -81,7 +87,8 @@ class PostcodesIO extends BasePostcodesIO {
      * @param string $postcode
      * @return stdClass
      */
-    public function nearest($postcode) {
+    public function nearest($postcode)
+    {
         return $this->findNearest($postcode);
     }
 
@@ -91,9 +98,10 @@ class PostcodesIO extends BasePostcodesIO {
      * @param string $postcode
      * @return stdClass
      */
-    public function autocomplete($postcode) {
+    public function autocomplete($postcode)
+    {
         return $this->get(
-            sprintf('/%s/%s/autocomplete', static::API_POSTCODES_ENDPOINT, $postcode)
+            sprintf('/%s/%s/autocomplete', BasePostcodesIO::API_POSTCODES_ENDPOINT, rawurlencode($postcode))
         );
     }
 
@@ -103,8 +111,9 @@ class PostcodesIO extends BasePostcodesIO {
      * @param string $postcode
      * @return stdClass
      */
-    public function query($postcode) {
-        return $this->get(static::API_POSTCODES_ENDPOINT, array(
+    public function query($postcode)
+    {
+        return $this->get(BasePostcodesIO::API_POSTCODES_ENDPOINT, array(
             'q' => $postcode
         ));
     }
@@ -116,7 +125,8 @@ class PostcodesIO extends BasePostcodesIO {
      * @param string $postcode
      * @return stdClass
      */
-    public function search($postcode) {
+    public function search($postcode)
+    {
         return $this->query($postcode);
     }
 
@@ -126,9 +136,10 @@ class PostcodesIO extends BasePostcodesIO {
      * @param string $outcode
      * @param stdClass
      */
-    public function findOutcode($outcode) {
+    public function findOutcode($outcode)
+    {
         return $this->get(
-            sprintf('%s/%s', static::API_OUTCODES_ENDPOINT, $outcode)
+            sprintf('%s/%s', BasePostcodesIO::API_OUTCODES_ENDPOINT, $outcode)
         );
     }
 
@@ -138,9 +149,10 @@ class PostcodesIO extends BasePostcodesIO {
      * @param string $outcode
      * @param stdClass
      */
-    public function nearestOutcode($outcode) {
+    public function nearestOutcode($outcode)
+    {
         return $this->get(
-            sprintf('%s/%s/nearest', static::API_OUTCODES_ENDPOINT, $outcode)
+            sprintf('%s/%s/nearest', BasePostcodesIO::API_OUTCODES_ENDPOINT, $outcode)
         );
     }
 
@@ -151,8 +163,9 @@ class PostcodesIO extends BasePostcodesIO {
      * @param float $longitude
      * @param stdClass
      */
-    public function findOutcodeByLocation($latitude, $longitude) {
-        return $this->get(static::API_OUTCODES_ENDPOINT, array(
+    public function findOutcodeByLocation($latitude, $longitude)
+    {
+        return $this->get(BasePostcodesIO::API_OUTCODES_ENDPOINT, array(
             'lat' => (float) $latitude,
             'lon' => (float) $longitude
         ));
@@ -164,14 +177,15 @@ class PostcodesIO extends BasePostcodesIO {
      * @param array $postcodes
      * @return stdClass
      */
-    public function bulkPostcodeSearch(array $postcodes) {
-        if (null !== $postcodes && count($postcodes) > static::BULK_SEARCH_LIMIT) {
+    public function bulkPostcodeSearch(array $postcodes)
+    {
+        if (null !== $postcodes && count($postcodes) > BasePostcodesIO::BULK_SEARCH_LIMIT) {
             throw new MaximumLimitExceededException(
-                sprintf('You can only search a maximum of %d postcodes in one request.', static::BULK_SEARCH_LIMIT)
+                sprintf('You can only search a maximum of %d postcodes in one request.', BasePostcodesIO::BULK_SEARCH_LIMIT)
             );
         }
 
-        return $this->post(static::API_POSTCODES_ENDPOINT, array(
+        return $this->post(BasePostcodesIO::API_POSTCODES_ENDPOINT, array(
             'postcodes' => $postcodes
         ));
     }
@@ -182,15 +196,33 @@ class PostcodesIO extends BasePostcodesIO {
      * @param array $geolocations
      * @return stdClass
      */
-    public function bulkReverseGeocoding(array $geolocations) {
-        if (null !== $geolocations && count($geolocations) > static::BULK_SEARCH_LIMIT) {
+    public function bulkReverseGeocoding(array $geolocations)
+    {
+        if (null !== $geolocations && count($geolocations) > BasePostcodesIO::BULK_SEARCH_LIMIT) {
             throw new MaximumLimitExceededException(
-                sprintf('You can only search a maximum of %d geolocations in one request.', static::BULK_SEARCH_LIMIT)
+                sprintf('You can only search a maximum of %d geolocations in one request.', BasePostcodesIO::BULK_SEARCH_LIMIT)
             );
         }
 
-        return $this->post(static::API_POSTCODES_ENDPOINT, array(
-            'geolocations' => $geolocations
+        $updatedGeolocations = [];
+        foreach ($geolocations as $geolocation) {
+            $location = [];
+
+            if (!array_key_exists('latitude', $geolocation)) {
+                $location['latitude'] = $geolocation[0];
+            }
+
+            if (!array_key_exists('longitude', $geolocation)) {
+                $location['longitude'] = $geolocation[1];
+            }
+
+            if (count($location) > 0) {
+                $updatedGeolocations[] = $location;
+            }
+        }
+
+        return $this->post(BasePostcodesIO::API_POSTCODES_ENDPOINT, array(
+            'geolocations' => count($updatedGeolocations) > 0 ? $updatedGeolocations : $geolocations
         ));
     }
 }

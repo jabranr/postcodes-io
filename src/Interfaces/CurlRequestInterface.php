@@ -2,7 +2,8 @@
 
 namespace Jabranr\PostcodesIO\Interfaces;
 
-interface CurlRequestInterface {
+interface CurlRequestInterface
+{
 
     /**
      * Set options for cURL request

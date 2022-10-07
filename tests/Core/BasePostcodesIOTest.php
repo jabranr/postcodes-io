@@ -4,38 +4,45 @@ namespace Jabranr\PostcodesIO\Tests\Core;
 
 use Jabranr\PostcodesIO\PostcodesIO;
 
-class BasePostcodesIOTest extends \PHPUnit_Framework_TestCase {
+class BasePostcodesIOTest extends \PHPUnit_Framework_TestCase
+{
 
     public $postcodeFinder;
     public $validPostcode;
 
-    public function setUp() {
+    public function setUp()
+    {
         $this->postcodeFinder = new PostcodesIO();
         $this->validPostcode = 'W1T 7NY';
     }
 
-    public function tearUp() {
+    public function tearUp()
+    {
         $this->postcodeFinder = null;
         $this->validPostcode = null;
     }
 
-    public function testConstants() {
+    public function testConstants()
+    {
         $this->assertEquals('https://api.postcodes.io', PostcodesIO::API_URI);
         $this->assertEquals('/postcodes', PostcodesIO::API_POSTCODES_ENDPOINT);
     }
 
-    public function testBareConstructor() {
+    public function testBareConstructor()
+    {
         $this->assertInstanceOf('Jabranr\PostcodesIO\PostcodesIO', $this->postcodeFinder);
         $this->assertNull($this->postcodeFinder->getResult());
     }
 
-    public function testConstructor() {
+    public function testConstructor()
+    {
         $postcodeFinder = new PostcodesIO($this->validPostcode);
         $this->assertInstanceOf('Jabranr\PostcodesIO\PostcodesIO', $postcodeFinder);
         $this->assertNotNull($postcodeFinder->getResult());
     }
 
-    public function testFind() {
+    public function testFind()
+    {
         $address = $this->postcodeFinder->find($this->validPostcode);
 
         $this->assertInstanceOf('stdClass', $address);
@@ -54,19 +61,22 @@ class BasePostcodesIOTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($incode, $address->result->incode);
     }
 
-    public function testTrimClean() {
+    public function testTrimClean()
+    {
         $string = '/foo/bar/';
         $cleanedString = $this->postcodeFinder->trimClean($string);
         $this->assertEquals('foo/bar/', $cleanedString);
     }
 
-    public function testGetApiUri() {
+    public function testGetApiUri()
+    {
         $expectedUri = sprintf('%s/%s', PostcodesIO::API_URI, $this->postcodeFinder->trimClean(PostcodesIO::API_POSTCODES_ENDPOINT));
 
         $this->assertEquals($expectedUri, $this->postcodeFinder->getApiUri('/postcodes'));
     }
 
-    public function testGetApiUriWithQueryString() {
+    public function testGetApiUriWithQueryString()
+    {
         $expectedUri = sprintf('%s/%s?foo=bar', PostcodesIO::API_URI, $this->postcodeFinder->trimClean(PostcodesIO::API_POSTCODES_ENDPOINT));
 
         $this->assertEquals($expectedUri, $this->postcodeFinder->getApiUri('/postcodes', array('foo' => 'bar')));

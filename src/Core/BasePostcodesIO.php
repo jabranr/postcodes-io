@@ -16,13 +16,14 @@ use Jabranr\PostcodesIO\Interfaces\PostcodesIOInterface;
  * @author Jabran Rafique <hello@jabran.me>
  * @license  MIT license
  */
-abstract class BasePostcodesIO implements PostcodesIOInterface {
+abstract class BasePostcodesIO implements PostcodesIOInterface
+{
 
     const API_URI = 'https://api.postcodes.io';
     const API_POSTCODES_ENDPOINT = '/postcodes';
     const API_OUTCODES_ENDPOINT = '/outcodes';
     const BULK_SEARCH_LIMIT = 100;
-    const VERSION = '1.0.2';
+    const VERSION = '1.1.0';
 
     /**
      * @var mixed
@@ -33,7 +34,8 @@ abstract class BasePostcodesIO implements PostcodesIOInterface {
      * @param string $postcode
      * @return Jabranr\PostcodesIO\BasePostcodesIO
      */
-    public function __construct($postcode = null) {
+    public function __construct($postcode = null)
+    {
         if (!empty($postcode)) {
             $response = $this->find($postcode);
             $this->result = $response;
@@ -48,13 +50,14 @@ abstract class BasePostcodesIO implements PostcodesIOInterface {
      * @param string $postcode
      * @return mixed
      */
-    public function find($postcode) {
+    public function find($postcode)
+    {
         if ($postcode && gettype($postcode) !== 'string') {
             throw new \InvalidArgumentException('Postcode can only be in string format.', 400);
         }
 
         return $this->get(
-            sprintf('%s/%s', static::API_POSTCODES_ENDPOINT, $postcode)
+            sprintf('%s/%s', BasePostcodesIO::API_POSTCODES_ENDPOINT, $postcode)
         );
     }
 
@@ -69,7 +72,8 @@ abstract class BasePostcodesIO implements PostcodesIOInterface {
      * @throws Jabranr\PostcodesIO\Exception\MalformedJsonException
      * @return stdClass
      */
-    protected function get($endpoint, array $query = null) {
+    protected function get($endpoint, array $query = null)
+    {
         $uri = $this->getApiUri($endpoint, $query);
         $response = file_get_contents($uri);
 
@@ -98,7 +102,8 @@ abstract class BasePostcodesIO implements PostcodesIOInterface {
      * @throws Jabranr\PostcodesIO\Exception\MalformedJsonException
      * @return mixed
      */
-    protected function post($endpoint, array $data) {
+    protected function post($endpoint, array $data)
+    {
         $uri = $this->getApiUri($endpoint);
         $data = json_encode($data);
 
@@ -141,8 +146,9 @@ abstract class BasePostcodesIO implements PostcodesIOInterface {
      * @param array $query
      * @return string
      */
-    public function getApiUri($endpoint, array $query = null) {
-        $uri = sprintf('%s/%s', static::API_URI, $this->trimClean($endpoint));
+    public function getApiUri($endpoint, array $query = null)
+    {
+        $uri = sprintf('%s/%s', BasePostcodesIO::API_URI, $this->trimClean($endpoint));
 
         if ($query && is_array($query)) {
             $uri = sprintf('%s?%s', $uri, http_build_query($query));
@@ -157,21 +163,24 @@ abstract class BasePostcodesIO implements PostcodesIOInterface {
      * @param string $str
      * @return string
      */
-    public function trimClean($str) {
+    public function trimClean($str)
+    {
         return ltrim($str, '/');
     }
 
     /**
      * @codeCoverageIgnore
      */
-    public function getResult() {
-       return $this->result;
+    public function getResult()
+    {
+        return $this->result;
     }
 
     /**
      * @codeCoverageIgnore
      */
-    public function setResult($result) {
+    public function setResult($result)
+    {
         $this->result = $result;
         return $this;
     }
