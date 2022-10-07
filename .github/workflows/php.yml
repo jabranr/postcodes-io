@@ -1,0 +1,30 @@
+name: Run unit / integration tests
+
+on:
+  push:
+    branches:
+        - develop
+  pull_request:
+    branches:
+        - develop
+permissions:
+  contents: read
+
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository code
+      uses: actions/checkout@v3
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v3
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+    - name: Install dependencies
+      run: composer install --dev --no-progress --no-interaction --prefer-source
+    - name: Run test suite
+      run: composer test
