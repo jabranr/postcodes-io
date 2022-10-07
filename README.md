@@ -46,6 +46,7 @@ $addresses = $postcodeFinder->findByLocation(51.520331, -0.1396267);
 $postcodeFinder = new PostcodesIO();
 $addresses = $postcodeFinder->findRandom();
 ```
+
 OR use the alias method:
 
 ```php
@@ -125,7 +126,6 @@ $addresses = $postcodeFinder->bulkPostcodeSearch(array('NW1 5LD', 'W1T 7NY'));
 
 > Maximum of 100 postcodes per request.
 
-
 #### Bulk reverse geocoding
 
 ```php
@@ -136,9 +136,19 @@ $addresses = $postcodeFinder->bulkReverseGeocoding(array(
 ));
 ```
 
+or
+
+```php
+$postcodeFinder = new PostcodesIO();
+$addresses = $postcodeFinder->bulkReverseGeocoding(array(
+    array('latitude' => 51.520331, 'longitude' => -0.1396267),
+    array('latitude' => 51.520331, 'longitude' => -0.1396267)
+));
+```
+
 > Maximum of 100 geolocations per request.
 
-
 # License
+
 MIT License
-&copy; 2016 &ndash; Jabran Rafique
+&copy; 2016 &ndash; present | Jabran Rafique
