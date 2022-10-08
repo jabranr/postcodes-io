@@ -1,4 +1,4 @@
-# PostcodesIO [![Run unit / integration tests](https://github.com/jabranr/postcodes-io/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/jabranr/postcodes-io/actions/workflows/unit-tests.yml) ![Packagist Version](https://img.shields.io/packagist/v/jabranr/postcodes-io?style=flat-square) ![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/jabranr/postcodes-io?style=flat-square)
+# PostcodesIO [![Tests](https://github.com/jabranr/postcodes-io/actions/workflows/phpunit-tests.yml/badge.svg)](https://github.com/jabranr/postcodes-io/actions/workflows/phpunit-tests.yml) ![Packagist Version](https://img.shields.io/packagist/v/jabranr/postcodes-io?style=flat-square) ![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/jabranr/postcodes-io?style=flat-square)
 
 PostcodesIO is a PHP library for postcodes.io API.
 
