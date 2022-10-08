@@ -1,38 +1,41 @@
 {
-    "name": "jabranr/postcodes-io",
-    "description": "PHP library for postcodes.io API",
-    "keywords": [
-        "postcode",
-        "UK",
-        "address"
-    ],
-    "version": "1.1.0",
-    "type": "library",
-    "require-dev": {
-        "phpunit/phpunit": "~4.8"
-    },
-    "license": "MIT License",
-    "authors": [
-        {
-            "name": "Jabran Rafique",
-            "email": "hello@jabran.me"
-        }
-    ],
-    "minimum-stability": "stable",
-    "require": {
-        "php": ">= 5.6"
-    },
-    "scripts": {
-        "test": "phpunit"
-    },
-    "autoload": {
-        "psr-4": {
-            "Jabranr\\PostcodesIO\\": "src"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Jabranr\\PostcodesIO\\Tests\\": "tests"
-        }
+  "name": "jabranr/postcodes-io",
+  "description": "PHP library for postcodes.io API",
+  "keywords": [
+    "postcode",
+    "UK",
+    "address"
+  ],
+  "version": "2.0.0",
+  "type": "library",
+  "require-dev": {
+    "phpunit/phpunit": "^9"
+  },
+  "license": "MIT License",
+  "authors": [
+    {
+      "name": "Jabran Rafique",
+      "email": "hello@jabran.me"
     }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">= 7.3"
+  },
+  "scripts": {
+    "test": "phpunit"
+  },
+  "autoload": {
+    "classmap": [
+      "src/"
+    ],
+    "psr-4": {
+      "Jabranr\\PostcodesIO\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Jabranr\\PostcodesIO\\Tests\\": "tests"
+    }
+  }
 }
