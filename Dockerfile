@@ -1,12 +1,9 @@
-FROM php:7-apache
+FROM php:7.3-apache
 
 RUN apt-get update
 RUN apt-get install -y git
 RUN pecl install xdebug-2.9.8 \
-    && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini;
-
-COPY . /app
-WORKDIR /app
+  && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini;
 
 # install composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
@@ -15,6 +12,5 @@ RUN php composer-setup.php
 RUN php -r "unlink('composer-setup.php');"
 RUN mv composer.phar /usr/local/bin/composer
 RUN chmod +x /usr/local/bin/composer
+RUN php -v
 RUN composer -V
-
-RUN composer install --no-interaction --prefer-source --dev
