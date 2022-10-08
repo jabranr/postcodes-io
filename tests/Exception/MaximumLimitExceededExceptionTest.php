@@ -2,18 +2,17 @@
 
 namespace Jabranr\PostcodesIO\Tests\Exception;
 
+use PHPUnit\Framework\TestCase;
 use Jabranr\PostcodesIO\Exception\MaximumLimitExceededException;
 
-class MaximumLimitExceededExceptionTest extends \PHPUnit_Framework_TestCase
+class MaximumLimitExceededExceptionTest extends TestCase
 {
-
-    /**
-     * @expectedException Jabranr\PostcodesIO\Exception\MaximumLimitExceededException
-     * @expectedExceptionCode 400
-     * @expectedExceptionMessage Maximum limit exceeded
-     */
-    public function testCorrectExceptionThrown()
-    {
-        throw new MaximumLimitExceededException('Maximum limit exceeded', 400);
-    }
+  public function testCorrectExceptionThrown()
+  {
+    $this->assertInstanceOf(MaximumLimitExceededException::class, new MaximumLimitExceededException);
+    $this->expectException(MaximumLimitExceededException::class);
+    $this->expectExceptionCode(400);
+    $this->expectExceptionMessage('Maximum limit exceeded');
+    throw new MaximumLimitExceededException('Maximum limit exceeded', 400);
+  }
 }
