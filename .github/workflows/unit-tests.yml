@@ -1,0 +1,44 @@
+name: Run unit / integration tests
+
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
+permissions:
+  contents: read
+
+jobs:
+  phpunit:
+    strategy:
+      matrix:
+        include:
+          - php: "7.3"
+          - php: "7.4"
+          - php: "8.0"
+          - php: "8.1"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          coverage: "none"
+          ini-values: date.timezone=Europe/London,memory_limit=-1,default_socket_timeout=10,session.gc_probability=0,apc.enable_cli=1,zend.assertions=1
+          php-version: "${{ matrix.php }}"
+          tools: flex
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+      - name: Install dependencies
+        run: composer install --no-progress --no-interaction --prefer-source
+      - name: Run test suite
+        run: composer test
