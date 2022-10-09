@@ -2,16 +2,19 @@
 
 namespace Jabranr\PostcodesIO\Tests\Exception;
 
+use PHPUnit\Framework\TestCase;
 use Jabranr\PostcodesIO\Exception\BadResponseException;
 
-class BadResponseExceptionTest extends \PHPUnit_Framework_TestCase {
+class BadResponseExceptionTest extends TestCase
+{
 
-    /**
-     * @expectedException Jabranr\PostcodesIO\Exception\BadResponseException
-     * @expectedExceptionCode 400
-     * @expectedExceptionMessage Bad Response
-     */
-    public function testCorrectExceptionThrown() {
-        throw new BadResponseException('Bad Response', 400);
-    }
+
+  public function testCorrectExceptionThrown()
+  {
+    $this->assertInstanceOf(BadResponseException::class, new BadResponseException);
+    $this->expectException(BadResponseException::class);
+    $this->expectExceptionCode(400);
+    $this->expectExceptionMessage('Bad Response');
+    throw new BadResponseException('Bad Response', 400);
+  }
 }
