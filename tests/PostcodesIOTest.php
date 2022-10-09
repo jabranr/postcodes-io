@@ -34,13 +34,6 @@ class PostcodesIOTest extends TestCase
     $this->inValidPostcode = null;
   }
 
-  public function testVersion()
-  {
-    $composerJson = file_get_contents(__DIR__ . '/../composer.json');
-    $composerJson = json_decode($composerJson);
-    $this->assertEquals($composerJson->version, PostcodesIO::VERSION);
-  }
-
   public function testFindLocation()
   {
     $address = $this->postcodeIO->findByLocation($this->latitude, $this->longitude);
