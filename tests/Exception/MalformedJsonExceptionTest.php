@@ -2,16 +2,17 @@
 
 namespace Jabranr\PostcodesIO\Tests\Exception;
 
+use PHPUnit\Framework\TestCase;
 use Jabranr\PostcodesIO\Exception\MalformedJsonException;
 
-class MalformedJsonExceptionTest extends \PHPUnit_Framework_TestCase {
-
-    /**
-     * @expectedException Jabranr\PostcodesIO\Exception\MalformedJsonException
-     * @expectedExceptionCode 400
-     * @expectedExceptionMessage Malformed json
-     */
-    public function testCorrectExceptionThrown() {
-        throw new MalformedJsonException('Malformed json', 400);
-    }
+class MalformedJsonExceptionTest extends TestCase
+{
+  public function testCorrectExceptionThrown()
+  {
+    $this->assertInstanceOf(MalformedJsonException::class, new MalformedJsonException);
+    $this->expectException(MalformedJsonException::class);
+    $this->expectExceptionCode(400);
+    $this->expectExceptionMessage('Malformed json');
+    throw new MalformedJsonException('Malformed json', 400);
+  }
 }

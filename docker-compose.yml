@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  postcodes_io:
+    build: .
+    container_name: postcodes_io
+    privileged: true
+    volumes:
+      - .:/app
+      - vendor:/app/vendor
+    working_dir: /app
+    entrypoint: /app/entrypoint.sh
+    environment:
+      XDEBUG_CONFIG: remote_host=host.docker.internal remote_port=9000 remote_enable=1 remote_autostart=1
+volumes:
+  vendor:
