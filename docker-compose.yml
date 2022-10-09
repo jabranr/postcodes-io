@@ -7,7 +7,7 @@ services:
     privileged: true
     volumes:
       - .:/app
-      - vendor
+      - vendor:/app/vendor
     working_dir: /app
     entrypoint: /app/entrypoint.sh
     environment:
