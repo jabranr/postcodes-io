@@ -6,12 +6,11 @@
     "UK",
     "address"
   ],
-  "version": "2.0.0",
   "type": "library",
   "require-dev": {
     "phpunit/phpunit": "^9"
   },
-  "license": "MIT License",
+  "license": "MIT",
   "authors": [
     {
       "name": "Jabran Rafique",
@@ -26,9 +25,6 @@
     "test": "phpunit"
   },
   "autoload": {
-    "classmap": [
-      "src/"
-    ],
     "psr-4": {
       "Jabranr\\PostcodesIO\\": "src"
     }
