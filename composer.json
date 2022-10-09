@@ -22,7 +22,10 @@
     "php": ">= 7.3"
   },
   "scripts": {
-    "test": "phpunit"
+    "test": [
+      "composer validate",
+      "phpunit"
+    ]
   },
   "autoload": {
     "psr-4": {
