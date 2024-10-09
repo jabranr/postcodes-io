@@ -72,7 +72,7 @@ abstract class BasePostcodesIO implements PostcodesIOInterface
    * @throws Jabranr\PostcodesIO\Exception\MalformedJsonException
    * @return stdClass
    */
-  protected function get($endpoint, array $query = null)
+  protected function get($endpoint, ?array $query = null)
   {
     $uri = $this->getApiUri($endpoint, $query);
     $response = file_get_contents($uri);
@@ -146,7 +146,7 @@ abstract class BasePostcodesIO implements PostcodesIOInterface
    * @param array $query
    * @return string
    */
-  public function getApiUri($endpoint, array $query = null)
+  public function getApiUri($endpoint, ?array $query = null)
   {
     $uri = sprintf('%s/%s', BasePostcodesIO::API_URI, $this->trimClean($endpoint));
 
