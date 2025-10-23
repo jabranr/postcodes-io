@@ -77,7 +77,9 @@ class CurlRequest implements CurlRequestInterface
 
   public function close()
   {
-    curl_close($this->handle);
+    if (PHP_MAJOR_VERSION < 8) {
+        curl_close($this->handle);
+    }
     return $this;
   }
 }
