@@ -5,7 +5,7 @@ namespace Jabranr\PostcodesIO\Core;
 use Jabranr\PostcodesIO\Interfaces\CurlRequestInterface;
 
 /**
- * Make a HTTP request using CURL
+ * Make an HTTP request using CURL
  *
  * This class provides helper methods to make
  * HTTP requests using CURL
@@ -77,7 +77,9 @@ class CurlRequest implements CurlRequestInterface
 
   public function close()
   {
-    curl_close($this->handle);
+    if (PHP_MAJOR_VERSION < 8) {
+        curl_close($this->handle);
+    }
     return $this;
   }
 }
